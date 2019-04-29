@@ -122,3 +122,39 @@ string first_host(string netw_adr, string mask)
 	(string)first_host_str;
 	return first_host_str;
 }
+
+string last_host(string wildcard, string netw_adr)
+{
+	int netw_int[4], wildc_int[4], l_host[4];
+	char l_host_str[16] = "\0", l_host_double_arr[4][4];
+
+	transform(netw_adr, netw_int);
+	transform(wildcard, wildc_int);
+
+	for (int i = 0; i < 4; i++) {
+		if (i != 3 || wildc_int[3] <= 1) {
+			l_host[i] = wildc_int[i] | netw_int[i];
+		}
+		else
+			l_host[i] = (wildc_int[i] | netw_int[i]) - 1;
+		sprintf_s(l_host_double_arr[i], 4, "%d", l_host[i]);
+	}
+
+	int row = 0, col = 0;
+	for (int i = 0; i < 16; i++) {
+		if (l_host_double_arr[row][col] != '\0') {
+			l_host_str[i] = l_host_double_arr[row][col];
+			col++;
+		}
+		else {
+			if (row == 3)
+				break;
+			l_host_str[i] = '.';
+			row++;
+			col = 0;
+		}
+	}
+
+	(string)l_host_str;
+	return l_host_str;
+}
