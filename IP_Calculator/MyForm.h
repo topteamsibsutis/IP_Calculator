@@ -50,6 +50,16 @@ namespace IPCalculator {
 	private: System::Windows::Forms::TextBox^  network_adress_output;
 	private: System::Windows::Forms::Label^  label3;
 	private: System::Windows::Forms::Label^  label4;
+	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Label^  label5;
+	private: System::Windows::Forms::Label^  label6;
+	private: System::Windows::Forms::Label^  label7;
+	private: System::Windows::Forms::TextBox^  broadcast_output;
+	private: System::Windows::Forms::TextBox^  last_host_output;
+
+
+	private: System::Windows::Forms::TextBox^  first_host_output;
+
 
 
 
@@ -76,6 +86,13 @@ namespace IPCalculator {
 			this->network_adress_output = (gcnew System::Windows::Forms::TextBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->broadcast_output = (gcnew System::Windows::Forms::TextBox());
+			this->last_host_output = (gcnew System::Windows::Forms::TextBox());
+			this->first_host_output = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -133,14 +150,14 @@ namespace IPCalculator {
 			// 
 			// wildcard_output
 			// 
-			this->wildcard_output->Location = System::Drawing::Point(12, 139);
+			this->wildcard_output->Location = System::Drawing::Point(12, 185);
 			this->wildcard_output->Name = L"wildcard_output";
 			this->wildcard_output->Size = System::Drawing::Size(290, 22);
 			this->wildcard_output->TabIndex = 5;
 			// 
 			// network_adress_output
 			// 
-			this->network_adress_output->Location = System::Drawing::Point(12, 203);
+			this->network_adress_output->Location = System::Drawing::Point(12, 248);
 			this->network_adress_output->Name = L"network_adress_output";
 			this->network_adress_output->Size = System::Drawing::Size(290, 22);
 			this->network_adress_output->TabIndex = 6;
@@ -148,7 +165,7 @@ namespace IPCalculator {
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(96, 119);
+			this->label3->Location = System::Drawing::Point(96, 165);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(123, 17);
 			this->label3->TabIndex = 7;
@@ -157,17 +174,81 @@ namespace IPCalculator {
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(116, 183);
+			this->label4->Location = System::Drawing::Point(116, 228);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(82, 17);
 			this->label4->TabIndex = 8;
 			this->label4->Text = L"Адрес сети";
 			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(12, 118);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(290, 28);
+			this->button1->TabIndex = 9;
+			this->button1->Text = L"Ввести данные заново";
+			this->button1->UseVisualStyleBackColor = true;
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Location = System::Drawing::Point(61, 293);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(191, 17);
+			this->label5->TabIndex = 10;
+			this->label5->Text = L"Широковещательный адрес";
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(64, 356);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(184, 17);
+			this->label6->TabIndex = 11;
+			this->label6->Text = L"Минимальный адрес хоста";
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Location = System::Drawing::Point(61, 418);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(190, 17);
+			this->label7->TabIndex = 12;
+			this->label7->Text = L"Максимальный адрес хоста";
+			// 
+			// broadcast_output
+			// 
+			this->broadcast_output->Location = System::Drawing::Point(12, 313);
+			this->broadcast_output->Name = L"broadcast_output";
+			this->broadcast_output->Size = System::Drawing::Size(289, 22);
+			this->broadcast_output->TabIndex = 13;
+			// 
+			// last_host_output
+			// 
+			this->last_host_output->Location = System::Drawing::Point(12, 438);
+			this->last_host_output->Name = L"last_host_output";
+			this->last_host_output->Size = System::Drawing::Size(289, 22);
+			this->last_host_output->TabIndex = 14;
+			// 
+			// first_host_output
+			// 
+			this->first_host_output->Location = System::Drawing::Point(12, 376);
+			this->first_host_output->Name = L"first_host_output";
+			this->first_host_output->Size = System::Drawing::Size(289, 22);
+			this->first_host_output->TabIndex = 15;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(314, 506);
+			this->ClientSize = System::Drawing::Size(314, 485);
+			this->Controls->Add(this->first_host_output);
+			this->Controls->Add(this->last_host_output);
+			this->Controls->Add(this->broadcast_output);
+			this->Controls->Add(this->label7);
+			this->Controls->Add(this->label6);
+			this->Controls->Add(this->label5);
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->network_adress_output);
@@ -177,6 +258,7 @@ namespace IPCalculator {
 			this->Controls->Add(this->ip_input);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
+			this->MaximizeBox = false;
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			this->ResumeLayout(false);
@@ -189,11 +271,19 @@ namespace IPCalculator {
 		string ip_input_string = context.marshal_as<string>(ip_input->Text);
 		string netmask_input_string = context.marshal_as<string>(netmask_input->Text);
 
-		//String^ network_adress_String = gcnew System::String(network_adress(ip_input_string, netmask_input_string).c_str());
-		//String^ wildcard_String = gcnew System::String(wildcard(netmask_input_string).c_str());
+		String^ network_adress_String = gcnew System::String(network_adress(ip_input_string, netmask_input_string).c_str());
+		String^ wildcard_String = gcnew System::String(wildcard(netmask_input_string).c_str());
 
-		//wildcard_output->Text = wildcard_String;
-		//network_adress_output->Text = network_adress_String;
+		string network_adress_string = context.marshal_as<string>(network_adress_String);
+		string wildcard_string = context.marshal_as<string>(wildcard_String);
+
+		String^ first_host_String = gcnew System::String(first_host(network_adress_string, netmask_input_string).c_str());
+		String^ last_host_String = gcnew System::String(last_host(wildcard_string, network_adress_string).c_str());
+
+		wildcard_output->Text = wildcard_String;
+		network_adress_output->Text = network_adress_String;
+		first_host_output->Text = first_host_String;
+		last_host_output->Text = last_host_String;
 	}
 };
 }
