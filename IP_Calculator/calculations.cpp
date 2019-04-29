@@ -100,3 +100,25 @@ string wildcard(string mask)
 	(string)wildc_str;
 	return wildc_str;
 }
+
+string first_host(string netw_adr, string mask)
+{
+	int netw_int[4], first_host = 0, mask_int[4];
+	string temp = netw_adr;
+	char first_host_str[16];
+	transform(netw_adr, netw_int);
+	transform(mask, mask_int);
+
+	strcpy_s(first_host_str, temp.c_str());
+	if (mask_int[3] != 255) {
+		for (int i = 0; i < 16; i++) {
+			if (first_host_str[i] == '\0') {
+				first_host_str[i - 1] = first_host_str[i - 1] + 1; 
+				break;
+			}
+		}
+	}
+
+	(string)first_host_str;
+	return first_host_str;
+}
