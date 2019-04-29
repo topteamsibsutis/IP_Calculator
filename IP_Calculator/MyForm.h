@@ -1,7 +1,9 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include "marshal_cppstd.h"
 #include "marshal.h"
+#include "calculations.h"
 
 namespace IPCalculator {
 
@@ -104,7 +106,9 @@ namespace IPCalculator {
 			// 
 			// netmask_input
 			// 
+			this->netmask_input->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->netmask_input->FormattingEnabled = true;
+			this->netmask_input->Items->AddRange(gcnew cli::array< System::Object^  >(1) { L"255.255.255.0" });
 			this->netmask_input->Location = System::Drawing::Point(158, 27);
 			this->netmask_input->Name = L"netmask_input";
 			this->netmask_input->Size = System::Drawing::Size(144, 24);
