@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "marshal.h"
+#include "marshal_cppstd.h"
 
 namespace IPCalculator {
 
@@ -104,7 +105,17 @@ namespace IPCalculator {
 			// 
 			// netmask_input
 			// 
+			this->netmask_input->DropDownHeight = 200;
+			this->netmask_input->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->netmask_input->FormattingEnabled = true;
+			this->netmask_input->IntegralHeight = false;
+			this->netmask_input->Items->AddRange(gcnew cli::array< System::Object^  >(33) {
+				L"255.255.255.255", L"255.255.255.254", L"255.255.255.252",
+					L"255.255.255.248", L"255.255.255.240", L"255.255.255.224", L"255.255.255.192", L"255.255.255.128", L"255.255.255.0", L"255.255.254.0",
+					L"255.255.252.0", L"255.255.248.0", L"255.255.240.0", L"255.255.224.0", L"255.255.192.0", L"255.255.128.0", L"255.255.0.0", L"255.254.0.0",
+					L"255.252.0.0", L"255.248.0.0", L"255.240.0.0", L"255.224.0.0", L"255.192.0.0", L"255.128.0.0", L"255.0.0.0", L"254.0.0.0", L"252.0.0.0",
+					L"248.0.0.0", L"240.0.0.0", L"224.0.0.0", L"192.0.0.0", L"128.0.0.0", L"0.0.0.0"
+			});
 			this->netmask_input->Location = System::Drawing::Point(158, 27);
 			this->netmask_input->Name = L"netmask_input";
 			this->netmask_input->Size = System::Drawing::Size(144, 24);
@@ -178,11 +189,11 @@ namespace IPCalculator {
 		string ip_input_string = context.marshal_as<string>(ip_input->Text);
 		string netmask_input_string = context.marshal_as<string>(netmask_input->Text);
 
-		String^ network_adress_String = gcnew System::String(network_adress(ip_input_string, netmask_input_string).c_str());
-		String^ wildcard_String = gcnew System::String(wildcard(netmask_input_string).c_str());
+		//String^ network_adress_String = gcnew System::String(network_adress(ip_input_string, netmask_input_string).c_str());
+		//String^ wildcard_String = gcnew System::String(wildcard(netmask_input_string).c_str());
 
-		wildcard_output->Text = wildcard_String;
-		network_adress_output->Text = network_adress_String;
+		//wildcard_output->Text = wildcard_String;
+		//network_adress_output->Text = network_adress_String;
 	}
 };
 }
