@@ -69,3 +69,34 @@ string network_adress(string ip, string mask)
 	(string)adr_str;
 	return adr_str;
 }
+
+string wildcard(string mask)
+{
+	int mask_int[4], wildc_int[4];
+	char wildc_str[16] = "\0", wildc_double_arr[4][4];
+
+	transform(mask, mask_int);
+
+	for (int i = 0; i < 4; i++) {
+		wildc_int[i] = 255 - mask_int[i];
+		sprintf_s(wildc_double_arr[i], 4, "%d", wildc_int[i]);
+	}
+
+	int row = 0, col = 0;
+	for (int i = 0; i < 16; i++) {
+		if (wildc_double_arr[row][col] != '\0') {
+			wildc_str[i] = wildc_double_arr[row][col];
+			col++;
+		}
+		else {
+			if (row == 3)
+				break;
+			wildc_str[i] = '.';
+			row++;
+			col = 0;
+		}
+	}
+
+	(string)wildc_str;
+	return wildc_str;
+}
