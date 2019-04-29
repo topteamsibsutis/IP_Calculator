@@ -6,7 +6,6 @@
 #include "calculations.h"
 
 namespace IPCalculator {
-
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -103,7 +102,7 @@ namespace IPCalculator {
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(64, 17);
 			this->label1->TabIndex = 0;
-			this->label1->Text = L"IP-�����";
+			this->label1->Text = L"IP-адрес";
 			// 
 			// label2
 			// 
@@ -112,7 +111,7 @@ namespace IPCalculator {
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(107, 17);
 			this->label2->TabIndex = 1;
-			this->label2->Text = L"����� �������";
+			this->label2->Text = L"Маска подсети";
 			// 
 			// ip_input
 			// 
@@ -123,23 +122,17 @@ namespace IPCalculator {
 			// 
 			// netmask_input
 			// 
-<<<<<<< HEAD
-			this->netmask_input->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
-			this->netmask_input->FormattingEnabled = true;
-			this->netmask_input->Items->AddRange(gcnew cli::array< System::Object^  >(1) { L"255.255.255.0" });
-=======
 			this->netmask_input->DropDownHeight = 200;
 			this->netmask_input->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->netmask_input->FormattingEnabled = true;
 			this->netmask_input->IntegralHeight = false;
-			this->netmask_input->Items->AddRange(gcnew cli::array< System::Object^  >(33) {
-				L"255.255.255.255", L"255.255.255.254", L"255.255.255.252",
-					L"255.255.255.248", L"255.255.255.240", L"255.255.255.224", L"255.255.255.192", L"255.255.255.128", L"255.255.255.0", L"255.255.254.0",
-					L"255.255.252.0", L"255.255.248.0", L"255.255.240.0", L"255.255.224.0", L"255.255.192.0", L"255.255.128.0", L"255.255.0.0", L"255.254.0.0",
-					L"255.252.0.0", L"255.248.0.0", L"255.240.0.0", L"255.224.0.0", L"255.192.0.0", L"255.128.0.0", L"255.0.0.0", L"254.0.0.0", L"252.0.0.0",
-					L"248.0.0.0", L"240.0.0.0", L"224.0.0.0", L"192.0.0.0", L"128.0.0.0", L"0.0.0.0"
+			this->netmask_input->Items->AddRange(gcnew cli::array< System::Object^  >(34) {
+				L"255.255.255.0", L"255.255.255.255", L"255.255.255.254",
+					L"255.255.255.252", L"255.255.255.248", L"255.255.255.240", L"255.255.255.224", L"255.255.255.192", L"255.255.255.128", L"255.255.255.0",
+					L"255.255.254.0", L"255.255.252.0", L"255.255.248.0", L"255.255.240.0", L"255.255.224.0", L"255.255.192.0", L"255.255.128.0",
+					L"255.255.0.0", L"255.254.0.0", L"255.252.0.0", L"255.248.0.0", L"255.240.0.0", L"255.224.0.0", L"255.192.0.0", L"255.128.0.0",
+					L"255.0.0.0", L"254.0.0.0", L"252.0.0.0", L"248.0.0.0", L"240.0.0.0", L"224.0.0.0", L"192.0.0.0", L"128.0.0.0", L"0.0.0.0"
 			});
->>>>>>> develop_graphics
 			this->netmask_input->Location = System::Drawing::Point(158, 27);
 			this->netmask_input->Name = L"netmask_input";
 			this->netmask_input->Size = System::Drawing::Size(144, 24);
@@ -151,7 +144,7 @@ namespace IPCalculator {
 			this->calculation_button->Name = L"calculation_button";
 			this->calculation_button->Size = System::Drawing::Size(290, 28);
 			this->calculation_button->TabIndex = 4;
-			this->calculation_button->Text = L"���������� ������ ����";
+			this->calculation_button->Text = L"Рассчитать данные сети";
 			this->calculation_button->UseVisualStyleBackColor = true;
 			this->calculation_button->Click += gcnew System::EventHandler(this, &MyForm::calculation_button_Click);
 			// 
@@ -176,7 +169,7 @@ namespace IPCalculator {
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(123, 17);
 			this->label3->TabIndex = 7;
-			this->label3->Text = L"��������� �����";
+			this->label3->Text = L"Инверсная маска";
 			// 
 			// label4
 			// 
@@ -185,7 +178,7 @@ namespace IPCalculator {
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(82, 17);
 			this->label4->TabIndex = 8;
-			this->label4->Text = L"����� ����";
+			this->label4->Text = L"Адрес сети";
 			// 
 			// button1
 			// 
@@ -193,7 +186,7 @@ namespace IPCalculator {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(290, 28);
 			this->button1->TabIndex = 9;
-			this->button1->Text = L"������ ������ ������";
+			this->button1->Text = L"Ввести данные заново";
 			this->button1->UseVisualStyleBackColor = true;
 			// 
 			// label5
@@ -203,25 +196,25 @@ namespace IPCalculator {
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(191, 17);
 			this->label5->TabIndex = 10;
-			this->label5->Text = L"����������������� �����";
+			this->label5->Text = L"Широковещательный адрес";
 			// 
 			// label6
 			// 
 			this->label6->AutoSize = true;
-			this->label6->Location = System::Drawing::Point(64, 356);
+			this->label6->Location = System::Drawing::Point(85, 356);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(184, 17);
+			this->label6->Size = System::Drawing::Size(142, 17);
 			this->label6->TabIndex = 11;
-			this->label6->Text = L"����������� ����� �����";
+			this->label6->Text = L"Первый адрес хоста";
 			// 
 			// label7
 			// 
 			this->label7->AutoSize = true;
-			this->label7->Location = System::Drawing::Point(61, 418);
+			this->label7->Location = System::Drawing::Point(74, 418);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(190, 17);
+			this->label7->Size = System::Drawing::Size(164, 17);
 			this->label7->TabIndex = 12;
-			this->label7->Text = L"������������ ����� �����";
+			this->label7->Text = L"Последний адрес хоста";
 			// 
 			// broadcast_output
 			// 
