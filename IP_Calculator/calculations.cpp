@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <string>
 
 using namespace std;
 
@@ -28,4 +29,43 @@ int transform(string object, int* object_int)
 			return 1;
 	}
 	return 0;
+}
+
+string network_adress(string ip, string mask)
+{
+	int ip_int[4], mask_int[4], netw_adr[4];
+	char adr_str[16] = "\0", adr_double_arr[4][4];
+
+	transform(ip, ip_int);       
+	transform(mask, mask_int);
+
+
+	for (int i = 0; i < 4; i++) {
+		netw_adr[i] = ip_int[i] & mask_int[i]; 
+		sprintf_s(
+			adr_double_arr[i],
+			4,
+			"%d",
+			netw_adr[i]);
+						  
+	}
+
+	int row = 0, col = 0;
+	for (int i = 0; i < 16; i++) {
+		if (adr_double_arr[row][col] != '\0') { 
+			adr_str[i] = adr_double_arr[row][col]; 
+												   
+			col++; 
+		}
+		else {
+			if (row == 3)
+				break;
+			adr_str[i] = '.';
+			row++; 
+			col = 0;
+		}
+	}
+
+	(string)adr_str;
+	return adr_str;
 }
