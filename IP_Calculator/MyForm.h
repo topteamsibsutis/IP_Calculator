@@ -263,7 +263,6 @@ namespace IPCalculator {
 			this->Text = L"MyForm";
 			this->ResumeLayout(false);
 			this->PerformLayout();
-
 		}
 #pragma endregion
 	private: System::Void calculation_button_Click(System::Object^  sender, System::EventArgs^  e) {
