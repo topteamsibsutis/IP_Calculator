@@ -1,4 +1,7 @@
 #pragma once
+#include <iostream>
+#include <string>
+#include "marshal.h"
 
 namespace IPCalculator {
 
@@ -8,6 +11,8 @@ namespace IPCalculator {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Runtime::InteropServices;
+	using namespace std;
 
 	/// <summary>
 	/// Summary for MyForm
@@ -37,9 +42,12 @@ namespace IPCalculator {
 	private: System::Windows::Forms::Label^  label1;
 	protected:
 	private: System::Windows::Forms::Label^  label2;
-	private: System::Windows::Forms::TextBox^  textBox1;
-	private: System::Windows::Forms::ComboBox^  comboBox1;
-	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::TextBox^  ip_input;
+	private: System::Windows::Forms::ComboBox^  netmask_input;
+	private: System::Windows::Forms::Button^  calculation_button;
+
+
+
 
 	private:
 		/// <summary>
@@ -56,9 +64,9 @@ namespace IPCalculator {
 		{
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->ip_input = (gcnew System::Windows::Forms::TextBox());
+			this->netmask_input = (gcnew System::Windows::Forms::ComboBox());
+			this->calculation_button = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -79,38 +87,39 @@ namespace IPCalculator {
 			this->label2->TabIndex = 1;
 			this->label2->Text = L"Маска подсети";
 			// 
-			// textBox1
+			// ip_input
 			// 
-			this->textBox1->Location = System::Drawing::Point(12, 27);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(118, 22);
-			this->textBox1->TabIndex = 2;
+			this->ip_input->Location = System::Drawing::Point(12, 27);
+			this->ip_input->Name = L"ip_input";
+			this->ip_input->Size = System::Drawing::Size(118, 22);
+			this->ip_input->TabIndex = 2;
 			// 
-			// comboBox1
+			// netmask_input
 			// 
-			this->comboBox1->FormattingEnabled = true;
-			this->comboBox1->Location = System::Drawing::Point(158, 27);
-			this->comboBox1->Name = L"comboBox1";
-			this->comboBox1->Size = System::Drawing::Size(144, 24);
-			this->comboBox1->TabIndex = 3;
+			this->netmask_input->FormattingEnabled = true;
+			this->netmask_input->Location = System::Drawing::Point(158, 27);
+			this->netmask_input->Name = L"netmask_input";
+			this->netmask_input->Size = System::Drawing::Size(144, 24);
+			this->netmask_input->TabIndex = 3;
 			// 
-			// button1
+			// calculation_button
 			// 
-			this->button1->Location = System::Drawing::Point(12, 71);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(290, 28);
-			this->button1->TabIndex = 4;
-			this->button1->Text = L"Рассчитать данные сети";
-			this->button1->UseVisualStyleBackColor = true;
+			this->calculation_button->Location = System::Drawing::Point(12, 71);
+			this->calculation_button->Name = L"calculation_button";
+			this->calculation_button->Size = System::Drawing::Size(290, 28);
+			this->calculation_button->TabIndex = 4;
+			this->calculation_button->Text = L"Рассчитать данные сети";
+			this->calculation_button->UseVisualStyleBackColor = true;
+			this->calculation_button->Click += gcnew System::EventHandler(this, &MyForm::calculation_button_Click);
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(314, 506);
-			this->Controls->Add(this->button1);
-			this->Controls->Add(this->comboBox1);
-			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->calculation_button);
+			this->Controls->Add(this->netmask_input);
+			this->Controls->Add(this->ip_input);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
 			this->Name = L"MyForm";
@@ -120,5 +129,10 @@ namespace IPCalculator {
 
 		}
 #pragma endregion
-	};
+	private: System::Void calculation_button_Click(System::Object^  sender, System::EventArgs^  e) {
+		msclr::interop::marshal_context context;
+		string ip_input_string = context.marshal_as<string>(ip_input->Text);
+		string netmask_input_string = context.marshal_as<string>(netmask_input->Text);
+	}
+};
 }
