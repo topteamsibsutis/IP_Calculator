@@ -158,3 +158,35 @@ string last_host(string wildcard, string netw_adr)
 	(string)l_host_str;
 	return l_host_str;
 }
+
+string broadcast(string netw_adr, string wildcard)
+{
+	int netw_int[4], wildc_int[4], brd_int[4];
+	char brd_str[16] = "\0", brd_double_arr[4][4];
+
+	transform(netw_adr, netw_int);
+	transform(wildcard, wildc_int);
+
+	for (int i = 0; i < 4; i++) {
+		brd_int[i] = wildc_int[i] | netw_int[i];
+		sprintf_s(brd_double_arr[i], 4, "%d", brd_int[i]);
+	}
+
+	int row = 0, col = 0;
+	for (int i = 0; i < 16; i++) {
+		if (brd_double_arr[row][col] != '\0') {
+			brd_str[i] = brd_double_arr[row][col];
+			col++;
+		}
+		else {
+			if (row == 3)
+				break;
+			brd_str[i] = '.';
+			row++;
+			col = 0;
+		}
+	}
+
+	(string)brd_str;
+	return brd_str;
+}
