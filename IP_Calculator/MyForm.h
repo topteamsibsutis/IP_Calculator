@@ -276,11 +276,13 @@ namespace IPCalculator {
 		string network_adress_string = context.marshal_as<string>(network_adress_String);
 		string wildcard_string = context.marshal_as<string>(wildcard_String);
 
+		String^ broadcast_String = gcnew System::String(broadcast(network_adress_string, wildcard_string).c_str());
 		String^ first_host_String = gcnew System::String(first_host(network_adress_string, netmask_input_string).c_str());
 		String^ last_host_String = gcnew System::String(last_host(wildcard_string, network_adress_string).c_str());
 
 		wildcard_output->Text = wildcard_String;
 		network_adress_output->Text = network_adress_String;
+		broadcast_output->Text = broadcast_String;
 		first_host_output->Text = first_host_String;
 		last_host_output->Text = last_host_String;
 	}
