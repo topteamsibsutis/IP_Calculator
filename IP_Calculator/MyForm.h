@@ -50,7 +50,8 @@ namespace IPCalculator {
 	private: System::Windows::Forms::TextBox^  network_adress_output;
 	private: System::Windows::Forms::Label^  label3;
 	private: System::Windows::Forms::Label^  label4;
-	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  clear_all;
+
 	private: System::Windows::Forms::Label^  label5;
 	private: System::Windows::Forms::Label^  label6;
 	private: System::Windows::Forms::Label^  label7;
@@ -92,7 +93,7 @@ namespace IPCalculator {
 			this->network_adress_output = (gcnew System::Windows::Forms::TextBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->clear_all = (gcnew System::Windows::Forms::Button());
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->label7 = (gcnew System::Windows::Forms::Label());
@@ -190,15 +191,15 @@ namespace IPCalculator {
 			this->label4->TabIndex = 8;
 			this->label4->Text = L"Network adress";
 			// 
-			// button1
+			// clear_all
 			// 
-			this->button1->Location = System::Drawing::Point(12, 118);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(290, 28);
-			this->button1->TabIndex = 9;
-			this->button1->Text = L"Clear all text fields";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
+			this->clear_all->Location = System::Drawing::Point(12, 118);
+			this->clear_all->Name = L"clear_all";
+			this->clear_all->Size = System::Drawing::Size(290, 28);
+			this->clear_all->TabIndex = 9;
+			this->clear_all->Text = L"Clear all text fields";
+			this->clear_all->UseVisualStyleBackColor = true;
+			this->clear_all->Click += gcnew System::EventHandler(this, &MyForm::clear_all_Click);
 			// 
 			// label5
 			// 
@@ -295,7 +296,7 @@ namespace IPCalculator {
 			this->Controls->Add(this->label7);
 			this->Controls->Add(this->label6);
 			this->Controls->Add(this->label5);
-			this->Controls->Add(this->button1);
+			this->Controls->Add(this->clear_all);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->network_adress_output);
@@ -342,5 +343,15 @@ namespace IPCalculator {
 		quan_ip_all_output->Text = quan_ip_all_String;
 		quan_ip_aviable_output->Text = quan_ip_aviable_String;
 	}
+private: System::Void clear_all_Click(System::Object^  sender, System::EventArgs^  e) {
+	ip_input->Clear();
+	wildcard_output->Clear();
+	network_adress_output->Clear();
+	broadcast_output->Clear();
+	first_host_output->Clear();
+	last_host_output->Clear();
+	quan_ip_all_output->Clear();
+	quan_ip_aviable_output->Clear();
+}
 };
 }
