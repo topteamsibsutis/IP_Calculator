@@ -51,7 +51,8 @@ namespace IPCalculator {
 	private: System::Windows::Forms::TextBox^  network_adress_output;
 	private: System::Windows::Forms::Label^  label3;
 	private: System::Windows::Forms::Label^  label4;
-	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  clear_all;
+
 	private: System::Windows::Forms::Label^  label5;
 	private: System::Windows::Forms::Label^  label6;
 	private: System::Windows::Forms::Label^  label7;
@@ -60,6 +61,12 @@ namespace IPCalculator {
 
 
 	private: System::Windows::Forms::TextBox^  first_host_output;
+	private: System::Windows::Forms::TextBox^  quan_ip_all_output;
+
+	private: System::Windows::Forms::TextBox^  quan_ip_aviable_output;
+
+	private: System::Windows::Forms::Label^  label8;
+	private: System::Windows::Forms::Label^  label9;
 
 
 
@@ -87,13 +94,17 @@ namespace IPCalculator {
 			this->network_adress_output = (gcnew System::Windows::Forms::TextBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->clear_all = (gcnew System::Windows::Forms::Button());
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->broadcast_output = (gcnew System::Windows::Forms::TextBox());
 			this->last_host_output = (gcnew System::Windows::Forms::TextBox());
 			this->first_host_output = (gcnew System::Windows::Forms::TextBox());
+			this->quan_ip_all_output = (gcnew System::Windows::Forms::TextBox());
+			this->quan_ip_aviable_output = (gcnew System::Windows::Forms::TextBox());
+			this->label8 = (gcnew System::Windows::Forms::Label());
+			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -181,14 +192,15 @@ namespace IPCalculator {
 			this->label4->TabIndex = 8;
 			this->label4->Text = L"Network adress";
 			// 
-			// button1
+			// clear_all
 			// 
-			this->button1->Location = System::Drawing::Point(12, 118);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(290, 28);
-			this->button1->TabIndex = 9;
-			this->button1->Text = L"Clear all text fields";
-			this->button1->UseVisualStyleBackColor = true;
+			this->clear_all->Location = System::Drawing::Point(12, 118);
+			this->clear_all->Name = L"clear_all";
+			this->clear_all->Size = System::Drawing::Size(290, 28);
+			this->clear_all->TabIndex = 9;
+			this->clear_all->Text = L"Clear all text fields";
+			this->clear_all->UseVisualStyleBackColor = true;
+			this->clear_all->Click += gcnew System::EventHandler(this, &MyForm::clear_all_Click);
 			// 
 			// label5
 			// 
@@ -238,18 +250,54 @@ namespace IPCalculator {
 			this->first_host_output->Size = System::Drawing::Size(289, 22);
 			this->first_host_output->TabIndex = 15;
 			// 
+			// quan_ip_all_output
+			// 
+			this->quan_ip_all_output->Location = System::Drawing::Point(12, 501);
+			this->quan_ip_all_output->Name = L"quan_ip_all_output";
+			this->quan_ip_all_output->Size = System::Drawing::Size(289, 22);
+			this->quan_ip_all_output->TabIndex = 16;
+			// 
+			// quan_ip_aviable_output
+			// 
+			this->quan_ip_aviable_output->Location = System::Drawing::Point(12, 568);
+			this->quan_ip_aviable_output->Name = L"quan_ip_aviable_output";
+			this->quan_ip_aviable_output->Size = System::Drawing::Size(289, 22);
+			this->quan_ip_aviable_output->TabIndex = 17;
+			// 
+			// label8
+			// 
+			this->label8->AutoSize = true;
+			this->label8->Location = System::Drawing::Point(80, 481);
+			this->label8->Name = L"label8";
+			this->label8->Size = System::Drawing::Size(152, 17);
+			this->label8->TabIndex = 18;
+			this->label8->Text = L"Quanity of IP-adresses";
+			// 
+			// label9
+			// 
+			this->label9->AutoSize = true;
+			this->label9->Location = System::Drawing::Point(56, 548);
+			this->label9->Name = L"label9";
+			this->label9->Size = System::Drawing::Size(201, 17);
+			this->label9->TabIndex = 19;
+			this->label9->Text = L"Quanity of aviable IP-adresses";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(314, 485);
+			this->ClientSize = System::Drawing::Size(314, 610);
+			this->Controls->Add(this->label9);
+			this->Controls->Add(this->label8);
+			this->Controls->Add(this->quan_ip_aviable_output);
+			this->Controls->Add(this->quan_ip_all_output);
 			this->Controls->Add(this->first_host_output);
 			this->Controls->Add(this->last_host_output);
 			this->Controls->Add(this->broadcast_output);
 			this->Controls->Add(this->label7);
 			this->Controls->Add(this->label6);
 			this->Controls->Add(this->label5);
-			this->Controls->Add(this->button1);
+			this->Controls->Add(this->clear_all);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->network_adress_output);
@@ -264,6 +312,7 @@ namespace IPCalculator {
 			this->Text = L"MyForm";
 			this->ResumeLayout(false);
 			this->PerformLayout();
+
 		}
 #pragma endregion
 	private: System::Void calculation_button_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -281,11 +330,29 @@ namespace IPCalculator {
 		String^ first_host_String = gcnew System::String(first_host(network_adress_string, netmask_input_string).c_str());
 		String^ last_host_String = gcnew System::String(last_host(wildcard_string, network_adress_string).c_str());
 
+		string broadcast_string = context.marshal_as<string>(broadcast_String);
+		String^ quan_ip_all_String = gcnew System::String(quan_ip(broadcast_string, network_adress_string).c_str());
+
+		string quan_ip_all_string = context.marshal_as<string>(quan_ip_all_String);
+		String^ quan_ip_aviable_String = gcnew System::String(quan_aviable(quan_ip_all_string).c_str());
+
 		wildcard_output->Text = wildcard_String;
 		network_adress_output->Text = network_adress_String;
 		broadcast_output->Text = broadcast_String;
 		first_host_output->Text = first_host_String;
 		last_host_output->Text = last_host_String;
+		quan_ip_all_output->Text = quan_ip_all_String;
+		quan_ip_aviable_output->Text = quan_ip_aviable_String;
 	}
-	};
+private: System::Void clear_all_Click(System::Object^  sender, System::EventArgs^  e) {
+	ip_input->Clear();
+	wildcard_output->Clear();
+	network_adress_output->Clear();
+	broadcast_output->Clear();
+	first_host_output->Clear();
+	last_host_output->Clear();
+	quan_ip_all_output->Clear();
+	quan_ip_aviable_output->Clear();
+}
+};
 }
