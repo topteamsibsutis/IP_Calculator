@@ -205,3 +205,17 @@ string quan_ip(string broad, string netw_adr)
 	(string)quan_str;
 	return quan_str;
 }
+
+string quan_aviable(string quan)
+{
+	char quan_use_str[11];
+	long long quan_int, quan_use_int;
+	quan_int = atoll(quan.c_str());
+	if (quan_int - 2 > 0)
+		quan_use_int = quan_int - 2;
+	else
+		quan_use_int = quan_int;
+	sprintf_s(quan_use_str, 11, "%lld", quan_use_int);
+	(string)quan_use_str;
+	return quan_use_str;
+}
