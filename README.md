@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/2iwhvvxa3cxjj0wh?svg=true)](https://ci.appveyor.com/project/HappySKN/ip-calculator)
