@@ -190,3 +190,18 @@ string broadcast(string netw_adr, string wildcard)
 	(string)brd_str;
 	return brd_str;
 }
+
+string quan_ip(string broad, string netw_adr)
+{
+	unsigned long long quan = 1;
+	char quan_str[11] = "\0";
+	int brd_int[4], netw_int[4];
+	transform(broad, brd_int);
+	transform(netw_adr, netw_int);
+	for (int i = 0; i < 4; i++) {
+		quan = quan * (brd_int[i] - netw_int[i] + 1);
+	}
+	sprintf_s(quan_str, 11, "%llu", quan);
+	(string)quan_str;
+	return quan_str;
+}
