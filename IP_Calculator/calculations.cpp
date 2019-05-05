@@ -4,218 +4,199 @@
 
 using namespace std;
 
-int transform(string object, int* object_int)
-{
-	int i = 0, j = 0, a = 0;
-	char part[4][4];
-	while (object[i] != '\0') {
-		if ((object[i] < 48 || object[i] > 57) && object[i] != '.')
-			return 1;
+int transform(string object, int *object_int) {
+  int i = 0, j = 0, a = 0;
+  char part[4][4];
+  while (object[i] != '\0') {
+    if ((object[i] < 48 || object[i] > 57) && object[i] != '.')
+      return 1;
 
-		if (object[i] == '.') {
-			i++;
-			a = 0;
-			j++;
-		}
+    if (object[i] == '.') {
+      i++;
+      a = 0;
+      j++;
+    }
 
-		part[j][a] = object[i];
-		a++;
-		i++;
-	}
+    part[j][a] = object[i];
+    a++;
+    i++;
+  }
 
-	for (i = 0; i < 4; i++) {
-		object_int[i] = atoi(part[i]);
-		if (object_int[i] < 0 || object_int[i] > 255)
-			return 1;
-	}
-	return 0;
+  for (i = 0; i < 4; i++) {
+    object_int[i] = atoi(part[i]);
+    if (object_int[i] < 0 || object_int[i] > 255)
+      return 1;
+  }
+  return 0;
 }
 
-string network_adress(string ip, string mask)
-{
-	int ip_int[4], mask_int[4], netw_adr[4];
-	char adr_str[16] = "\0", adr_double_arr[4][4];
+string network_adress(string ip, string mask) {
+  int ip_int[4], mask_int[4], netw_adr[4];
+  char adr_str[16] = "\0", adr_double_arr[4][4];
 
-	transform(ip, ip_int);       
-	transform(mask, mask_int);
+  transform(ip, ip_int);
+  transform(mask, mask_int);
 
+  for (int i = 0; i < 4; i++) {
+    netw_adr[i] = ip_int[i] & mask_int[i];
+    sprintf_s(adr_double_arr[i], 4, "%d", netw_adr[i]);
+  }
 
-	for (int i = 0; i < 4; i++) {
-		netw_adr[i] = ip_int[i] & mask_int[i]; 
-		sprintf_s(
-			adr_double_arr[i],
-			4,
-			"%d",
-			netw_adr[i]);
-						  
-	}
+  int row = 0, col = 0;
+  for (int i = 0; i < 16; i++) {
+    if (adr_double_arr[row][col] != '\0') {
+      adr_str[i] = adr_double_arr[row][col];
 
-	int row = 0, col = 0;
-	for (int i = 0; i < 16; i++) {
-		if (adr_double_arr[row][col] != '\0') { 
-			adr_str[i] = adr_double_arr[row][col]; 
-												   
-			col++; 
-		}
-		else {
-			if (row == 3)
-				break;
-			adr_str[i] = '.';
-			row++; 
-			col = 0;
-		}
-	}
+      col++;
+    } else {
+      if (row == 3)
+        break;
+      adr_str[i] = '.';
+      row++;
+      col = 0;
+    }
+  }
 
-	(string)adr_str;
-	return adr_str;
+  (string) adr_str;
+  return adr_str;
 }
 
-string wildcard(string mask)
-{
-	int mask_int[4], wildc_int[4];
-	char wildc_str[16] = "\0", wildc_double_arr[4][4];
+string wildcard(string mask) {
+  int mask_int[4], wildc_int[4];
+  char wildc_str[16] = "\0", wildc_double_arr[4][4];
 
-	transform(mask, mask_int);
+  transform(mask, mask_int);
 
-	for (int i = 0; i < 4; i++) {
-		wildc_int[i] = 255 - mask_int[i];
-		sprintf_s(wildc_double_arr[i], 4, "%d", wildc_int[i]);
-	}
+  for (int i = 0; i < 4; i++) {
+    wildc_int[i] = 255 - mask_int[i];
+    sprintf_s(wildc_double_arr[i], 4, "%d", wildc_int[i]);
+  }
 
-	int row = 0, col = 0;
-	for (int i = 0; i < 16; i++) {
-		if (wildc_double_arr[row][col] != '\0') {
-			wildc_str[i] = wildc_double_arr[row][col];
-			col++;
-		}
-		else {
-			if (row == 3)
-				break;
-			wildc_str[i] = '.';
-			row++;
-			col = 0;
-		}
-	}
+  int row = 0, col = 0;
+  for (int i = 0; i < 16; i++) {
+    if (wildc_double_arr[row][col] != '\0') {
+      wildc_str[i] = wildc_double_arr[row][col];
+      col++;
+    } else {
+      if (row == 3)
+        break;
+      wildc_str[i] = '.';
+      row++;
+      col = 0;
+    }
+  }
 
-	(string)wildc_str;
-	return wildc_str;
+  (string) wildc_str;
+  return wildc_str;
 }
 
-string first_host(string netw_adr, string mask)
-{
-	int netw_int[4], first_host = 0, mask_int[4];
-	string temp = netw_adr;
-	char first_host_str[16];
-	transform(netw_adr, netw_int);
-	transform(mask, mask_int);
+string first_host(string netw_adr, string mask) {
+  int netw_int[4], first_host = 0, mask_int[4];
+  string temp = netw_adr;
+  char first_host_str[16];
+  transform(netw_adr, netw_int);
+  transform(mask, mask_int);
 
-	strcpy_s(first_host_str, temp.c_str());
-	if (mask_int[3] != 255) {
-		for (int i = 0; i < 16; i++) {
-			if (first_host_str[i] == '\0') {
-				first_host_str[i - 1] = first_host_str[i - 1] + 1; 
-				break;
-			}
-		}
-	}
+  strcpy_s(first_host_str, temp.c_str());
+  if (mask_int[3] != 255) {
+    for (int i = 0; i < 16; i++) {
+      if (first_host_str[i] == '\0') {
+        first_host_str[i - 1] = first_host_str[i - 1] + 1;
+        break;
+      }
+    }
+  }
 
-	(string)first_host_str;
-	return first_host_str;
+  (string) first_host_str;
+  return first_host_str;
 }
 
-string last_host(string wildcard, string netw_adr)
-{
-	int netw_int[4], wildc_int[4], l_host[4];
-	char l_host_str[16] = "\0", l_host_double_arr[4][4];
+string last_host(string wildcard, string netw_adr) {
+  int netw_int[4], wildc_int[4], l_host[4];
+  char l_host_str[16] = "\0", l_host_double_arr[4][4];
 
-	transform(netw_adr, netw_int);
-	transform(wildcard, wildc_int);
+  transform(netw_adr, netw_int);
+  transform(wildcard, wildc_int);
 
-	for (int i = 0; i < 4; i++) {
-		if (i != 3 || wildc_int[3] <= 1) {
-			l_host[i] = wildc_int[i] | netw_int[i];
-		}
-		else
-			l_host[i] = (wildc_int[i] | netw_int[i]) - 1;
-		sprintf_s(l_host_double_arr[i], 4, "%d", l_host[i]);
-	}
+  for (int i = 0; i < 4; i++) {
+    if (i != 3 || wildc_int[3] <= 1) {
+      l_host[i] = wildc_int[i] | netw_int[i];
+    } else
+      l_host[i] = (wildc_int[i] | netw_int[i]) - 1;
+    sprintf_s(l_host_double_arr[i], 4, "%d", l_host[i]);
+  }
 
-	int row = 0, col = 0;
-	for (int i = 0; i < 16; i++) {
-		if (l_host_double_arr[row][col] != '\0') {
-			l_host_str[i] = l_host_double_arr[row][col];
-			col++;
-		}
-		else {
-			if (row == 3)
-				break;
-			l_host_str[i] = '.';
-			row++;
-			col = 0;
-		}
-	}
+  int row = 0, col = 0;
+  for (int i = 0; i < 16; i++) {
+    if (l_host_double_arr[row][col] != '\0') {
+      l_host_str[i] = l_host_double_arr[row][col];
+      col++;
+    } else {
+      if (row == 3)
+        break;
+      l_host_str[i] = '.';
+      row++;
+      col = 0;
+    }
+  }
 
-	(string)l_host_str;
-	return l_host_str;
+  (string) l_host_str;
+  return l_host_str;
 }
 
-string broadcast(string netw_adr, string wildcard)
-{
-	int netw_int[4], wildc_int[4], brd_int[4];
-	char brd_str[16] = "\0", brd_double_arr[4][4];
+string broadcast(string netw_adr, string wildcard) {
+  int netw_int[4], wildc_int[4], brd_int[4];
+  char brd_str[16] = "\0", brd_double_arr[4][4];
 
-	transform(netw_adr, netw_int);
-	transform(wildcard, wildc_int);
+  transform(netw_adr, netw_int);
+  transform(wildcard, wildc_int);
 
-	for (int i = 0; i < 4; i++) {
-		brd_int[i] = wildc_int[i] | netw_int[i];
-		sprintf_s(brd_double_arr[i], 4, "%d", brd_int[i]);
-	}
+  for (int i = 0; i < 4; i++) {
+    brd_int[i] = wildc_int[i] | netw_int[i];
+    sprintf_s(brd_double_arr[i], 4, "%d", brd_int[i]);
+  }
 
-	int row = 0, col = 0;
-	for (int i = 0; i < 16; i++) {
-		if (brd_double_arr[row][col] != '\0') {
-			brd_str[i] = brd_double_arr[row][col];
-			col++;
-		}
-		else {
-			if (row == 3)
-				break;
-			brd_str[i] = '.';
-			row++;
-			col = 0;
-		}
-	}
+  int row = 0, col = 0;
+  for (int i = 0; i < 16; i++) {
+    if (brd_double_arr[row][col] != '\0') {
+      brd_str[i] = brd_double_arr[row][col];
+      col++;
+    } else {
+      if (row == 3)
+        break;
+      brd_str[i] = '.';
+      row++;
+      col = 0;
+    }
+  }
 
-	(string)brd_str;
-	return brd_str;
+  (string) brd_str;
+  return brd_str;
 }
 
-string quan_ip(string broad, string netw_adr)
-{
-	unsigned long long quan = 1;
-	char quan_str[11] = "\0";
-	int brd_int[4], netw_int[4];
-	transform(broad, brd_int);
-	transform(netw_adr, netw_int);
-	for (int i = 0; i < 4; i++) {
-		quan = quan * (brd_int[i] - netw_int[i] + 1);
-	}
-	sprintf_s(quan_str, 11, "%llu", quan);
-	(string)quan_str;
-	return quan_str;
+string quan_ip(string broad, string netw_adr) {
+  unsigned long long quan = 1;
+  char quan_str[11] = "\0";
+  int brd_int[4], netw_int[4];
+  transform(broad, brd_int);
+  transform(netw_adr, netw_int);
+  for (int i = 0; i < 4; i++) {
+    quan = quan * (brd_int[i] - netw_int[i] + 1);
+  }
+  sprintf_s(quan_str, 11, "%llu", quan);
+  (string) quan_str;
+  return quan_str;
 }
 
-string quan_aviable(string quan)
-{
-	char quan_use_str[11];
-	long long quan_int, quan_use_int;
-	quan_int = atoll(quan.c_str());
-	if (quan_int - 2 > 0)
-		quan_use_int = quan_int - 2;
-	else
-		quan_use_int = quan_int;
-	sprintf_s(quan_use_str, 11, "%lld", quan_use_int);
-	(string)quan_use_str;
-	return quan_use_str;
+string quan_aviable(string quan) {
+  char quan_use_str[11];
+  long long quan_int, quan_use_int;
+  quan_int = atoll(quan.c_str());
+  if (quan_int - 2 > 0)
+    quan_use_int = quan_int - 2;
+  else
+    quan_use_int = quan_int;
+  sprintf_s(quan_use_str, 11, "%lld", quan_use_int);
+  (string) quan_use_str;
+  return quan_use_str;
 }
