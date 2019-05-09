@@ -1,6 +1,9 @@
+#include "pch.h"
+
 #include <iostream>
 #include <stdlib.h>
 #include <string>
+
 
 int transform(std::string object, int* object_int)
 {
@@ -34,32 +37,32 @@ std::string network_adress(std::string ip, std::string mask)
 	int ip_int[4], mask_int[4], netw_adr[4];
 	char adr_str[16] = "\0", adr_double_arr[4][4];
 
-	transform(ip, ip_int);       
+	transform(ip, ip_int);
 	transform(mask, mask_int);
 
 
 	for (int i = 0; i < 4; i++) {
-		netw_adr[i] = ip_int[i] & mask_int[i]; 
+		netw_adr[i] = ip_int[i] & mask_int[i];
 		sprintf_s(
 			adr_double_arr[i],
 			4,
 			"%d",
 			netw_adr[i]);
-						  
+
 	}
 
 	int row = 0, col = 0;
 	for (int i = 0; i < 16; i++) {
-		if (adr_double_arr[row][col] != '\0') { 
-			adr_str[i] = adr_double_arr[row][col]; 
-												   
-			col++; 
+		if (adr_double_arr[row][col] != '\0') {
+			adr_str[i] = adr_double_arr[row][col];
+
+			col++;
 		}
 		else {
 			if (row == 3)
 				break;
 			adr_str[i] = '.';
-			row++; 
+			row++;
 			col = 0;
 		}
 	}
@@ -111,7 +114,7 @@ std::string first_host(std::string netw_adr, std::string mask)
 	if (mask_int[3] != 255) {
 		for (int i = 0; i < 16; i++) {
 			if (first_host_str[i] == '\0') {
-				first_host_str[i - 1] = first_host_str[i - 1] + 1; 
+				first_host_str[i - 1] = first_host_str[i - 1] + 1;
 				break;
 			}
 		}
@@ -218,6 +221,12 @@ std::string quan_aviable(std::string quan)
 	return quan_use_str;
 }
 
-int main() {
-	return 0;
+
+
+TEST(TestCaseName, TestName) {
+	std::string result = "0.0.0.0";
+	std::string expected = network_adress("123.213.56.34", "0.0.0.0");
+
+	EXPECT_EQ(expected, result);
 }
+
