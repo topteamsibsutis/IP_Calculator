@@ -306,3 +306,24 @@ TEST(Last_host, Rand) {
 
 	EXPECT_EQ(expected, result);
 }
+
+TEST(Broadcast, Zeros) {
+	std::string expected = "255.255.255.255";
+	std::string result = broadcast("0.0.0.0", "255.255.255.255");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Broadcast, Max) {
+	std::string expected = "192.168.0.1";
+	std::string result = broadcast("192.168.0.1", "0.0.0.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Broadcast, Rand) {
+	std::string expected = "192.168.0.127";
+	std::string result = broadcast("192.168.0.0", "0.0.0.127");
+
+	EXPECT_EQ(expected, result);
+}
