@@ -223,10 +223,44 @@ std::string quan_aviable(std::string quan)
 
 
 
-TEST(TestCaseName, TestName) {
-	std::string result = "0.0.0.0";
-	std::string expected = network_adress("123.213.56.34", "0.0.0.0");
+TEST(Network_adr, Zeros) {
+	std::string expected = "0.0.0.0";
+	std::string result = network_adress("123.213.56.34", "0.0.0.0");
 
 	EXPECT_EQ(expected, result);
 }
 
+TEST(Network_adr, Max) {
+	std::string expected = "123.213.56.34";
+	std::string result = network_adress("123.213.56.34", "255.255.255.255");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Network_adr, Rand) {
+	std::string expected = "123.213.56.0";
+	std::string result = network_adress("123.213.56.34", "255.255.255.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Wildcard, Zeros) {
+	std::string expected = "255.255.255.255";
+	std::string result = wildcard("0.0.0.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Wildcard, Max) {
+	std::string expected = "0.0.0.0";
+	std::string result = wildcard("255.255.255.255");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Wildcard, Rand) {
+	std::string expected = "0.0.127.255";
+	std::string result = wildcard("255.255.128.0");
+
+	EXPECT_EQ(expected, result);
+}
