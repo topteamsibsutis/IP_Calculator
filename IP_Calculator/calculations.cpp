@@ -217,7 +217,3 @@ std::string quan_aviable(std::string quan)
 	(std::string)quan_use_str;
 	return quan_use_str;
 }
-
-int main() {
-	return 0;
-}

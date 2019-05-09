@@ -225,21 +225,21 @@ std::string quan_aviable(std::string quan)
 
 TEST(Network_adr, Zeros) {
 	std::string expected = "0.0.0.0";
-	std::string result = network_adress("123.213.56.34", "0.0.0.0");
+	std::string result = network_adress("192.168.0.1", "0.0.0.0");
 
 	EXPECT_EQ(expected, result);
 }
 
 TEST(Network_adr, Max) {
-	std::string expected = "123.213.56.34";
-	std::string result = network_adress("123.213.56.34", "255.255.255.255");
+	std::string expected = "192.168.0.1";
+	std::string result = network_adress("192.168.0.1", "255.255.255.255");
 
 	EXPECT_EQ(expected, result);
 }
 
 TEST(Network_adr, Rand) {
-	std::string expected = "123.213.56.0";
-	std::string result = network_adress("123.213.56.34", "255.255.255.0");
+	std::string expected = "192.168.0.0";
+	std::string result = network_adress("192.168.0.1", "255.255.255.0");
 
 	EXPECT_EQ(expected, result);
 }
@@ -261,6 +261,48 @@ TEST(Wildcard, Max) {
 TEST(Wildcard, Rand) {
 	std::string expected = "0.0.127.255";
 	std::string result = wildcard("255.255.128.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(First_host, Zeros) {
+	std::string expected = "0.0.0.1";
+	std::string result = first_host("0.0.0.0", "0.0.0.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(First_host, Max) {
+	std::string expected = "192.168.0.1";
+	std::string result = first_host("192.168.0.1", "255.255.255.255");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(First_host, Rand) {
+	std::string expected = "192.168.0.1";
+	std::string result = first_host("192.168.0.0", "255.255.128.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Last_host, Zeros) {
+	std::string expected = "255.255.255.254";
+	std::string result = last_host("255.255.255.255", "0.0.0.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Last_host, Max) {
+	std::string expected = "192.168.0.1";
+	std::string result = last_host("0.0.0.0", "192.168.0.1");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Last_host, Rand) {
+	std::string expected = "192.168.63.254";
+	std::string result = last_host("0.0.63.255", "192.168.0.0");
 
 	EXPECT_EQ(expected, result);
 }
