@@ -327,3 +327,45 @@ TEST(Broadcast, Rand) {
 
 	EXPECT_EQ(expected, result);
 }
+
+TEST(Quantity, Zeros) {
+	std::string expected = "4294967296";
+	std::string result = quan_ip("255.255.255.255", "0.0.0.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Quantity, Max) {
+	std::string expected = "1";
+	std::string result = quan_ip("192.168.0.1", "192.168.0.1");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Quantity, Rand) {
+	std::string expected = "8192";
+	std::string result = quan_ip("192.168.31.255", "192.168.0.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Quantity_used, Zeros) {
+	std::string expected = "4294967294";
+	std::string result = quan_aviable("4294967296");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Quantity_used, Max) {
+	std::string expected = "1";
+	std::string result = quan_aviable("1");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Quantity_used, Rand) {
+	std::string expected = "8190";
+	std::string result = quan_aviable("8192");
+
+	EXPECT_EQ(expected, result);
+}
