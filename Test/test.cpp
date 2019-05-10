@@ -1,12 +1,12 @@
+#include "pch.h"
 #include <iostream>
 #include <stdlib.h>
 #include <string>
 
 
-int check(std::string object)
+int transform(std::string object, int* object_int)
 {
-	int object_int[4];
-	int i = 0, j = 0, a = 0, quan = 0;
+	int i = 0, j = 0, a = 0;
 	char part[4][4];
 	while (object[i] != '\0') {
 		if ((object[i] < 48 || object[i] > 57) && object[i] != '.')
@@ -16,42 +16,19 @@ int check(std::string object)
 			i++;
 			a = 0;
 			j++;
-			quan++;
-			if (quan > 3) return 3;
 		}
 
 		part[j][a] = object[i];
 		a++;
 		i++;
 	}
-	if (quan < 3) return 3;
+
 	for (i = 0; i < 4; i++) {
 		object_int[i] = atoi(part[i]);
 		if (object_int[i] < 0 || object_int[i] > 255)
-			return 2;
+			return 1;
 	}
 	return 0;
-}
-void transform(std::string object, int* object_int)
-{
-	int i = 0, j = 0, a = 0;
-	char part[4][4];
-	while (object[i] != '\0') {
-		
-		if (object[i] == '.') {
-			i++;
-			a = 0;
-			j++;
-		}
-
-		part[j][a] = object[i];
-		a++;
-		i++;
-	}
-
-	for (i = 0; i < 4; i++) {
-		object_int[i] = atoi(part[i]);
-	}
 }
 
 std::string network_adress(std::string ip, std::string mask)
@@ -59,32 +36,32 @@ std::string network_adress(std::string ip, std::string mask)
 	int ip_int[4], mask_int[4], netw_adr[4];
 	char adr_str[16] = "\0", adr_double_arr[4][4];
 
-	transform(ip, ip_int);       
+	transform(ip, ip_int);
 	transform(mask, mask_int);
 
 
 	for (int i = 0; i < 4; i++) {
-		netw_adr[i] = ip_int[i] & mask_int[i]; 
+		netw_adr[i] = ip_int[i] & mask_int[i];
 		sprintf_s(
 			adr_double_arr[i],
 			4,
 			"%d",
 			netw_adr[i]);
-						  
+
 	}
 
 	int row = 0, col = 0;
 	for (int i = 0; i < 16; i++) {
-		if (adr_double_arr[row][col] != '\0') { 
-			adr_str[i] = adr_double_arr[row][col]; 
-												   
-			col++; 
+		if (adr_double_arr[row][col] != '\0') {
+			adr_str[i] = adr_double_arr[row][col];
+
+			col++;
 		}
 		else {
 			if (row == 3)
 				break;
 			adr_str[i] = '.';
-			row++; 
+			row++;
 			col = 0;
 		}
 	}
@@ -136,7 +113,7 @@ std::string first_host(std::string netw_adr, std::string mask)
 	if (mask_int[3] != 255) {
 		for (int i = 0; i < 16; i++) {
 			if (first_host_str[i] == '\0') {
-				first_host_str[i - 1] = first_host_str[i - 1] + 1; 
+				first_host_str[i - 1] = first_host_str[i - 1] + 1;
 				break;
 			}
 		}
@@ -243,6 +220,151 @@ std::string quan_aviable(std::string quan)
 	return quan_use_str;
 }
 
-int main() {
-	return 0;
+
+
+TEST(Network_adr, Zeros) {
+	std::string expected = "0.0.0.0";
+	std::string result = network_adress("192.168.0.1", "0.0.0.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Network_adr, Max) {
+	std::string expected = "192.168.0.1";
+	std::string result = network_adress("192.168.0.1", "255.255.255.255");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Network_adr, Rand) {
+	std::string expected = "192.168.0.0";
+	std::string result = network_adress("192.168.0.1", "255.255.255.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Wildcard, Zeros) {
+	std::string expected = "255.255.255.255";
+	std::string result = wildcard("0.0.0.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Wildcard, Max) {
+	std::string expected = "0.0.0.0";
+	std::string result = wildcard("255.255.255.255");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Wildcard, Rand) {
+	std::string expected = "0.0.127.255";
+	std::string result = wildcard("255.255.128.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(First_host, Zeros) {
+	std::string expected = "0.0.0.1";
+	std::string result = first_host("0.0.0.0", "0.0.0.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(First_host, Max) {
+	std::string expected = "192.168.0.1";
+	std::string result = first_host("192.168.0.1", "255.255.255.255");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(First_host, Rand) {
+	std::string expected = "192.168.0.1";
+	std::string result = first_host("192.168.0.0", "255.255.128.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Last_host, Zeros) {
+	std::string expected = "255.255.255.254";
+	std::string result = last_host("255.255.255.255", "0.0.0.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Last_host, Max) {
+	std::string expected = "192.168.0.1";
+	std::string result = last_host("0.0.0.0", "192.168.0.1");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Last_host, Rand) {
+	std::string expected = "192.168.63.254";
+	std::string result = last_host("0.0.63.255", "192.168.0.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Broadcast, Zeros) {
+	std::string expected = "255.255.255.255";
+	std::string result = broadcast("0.0.0.0", "255.255.255.255");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Broadcast, Max) {
+	std::string expected = "192.168.0.1";
+	std::string result = broadcast("192.168.0.1", "0.0.0.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Broadcast, Rand) {
+	std::string expected = "192.168.0.127";
+	std::string result = broadcast("192.168.0.0", "0.0.0.127");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Quantity, Zeros) {
+	std::string expected = "4294967296";
+	std::string result = quan_ip("255.255.255.255", "0.0.0.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Quantity, Max) {
+	std::string expected = "1";
+	std::string result = quan_ip("192.168.0.1", "192.168.0.1");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Quantity, Rand) {
+	std::string expected = "8192";
+	std::string result = quan_ip("192.168.31.255", "192.168.0.0");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Quantity_used, Zeros) {
+	std::string expected = "4294967294";
+	std::string result = quan_aviable("4294967296");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Quantity_used, Max) {
+	std::string expected = "1";
+	std::string result = quan_aviable("1");
+
+	EXPECT_EQ(expected, result);
+}
+
+TEST(Quantity_used, Rand) {
+	std::string expected = "8190";
+	std::string result = quan_aviable("8192");
+
+	EXPECT_EQ(expected, result);
 }
