@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string>
 
@@ -160,7 +161,7 @@ std::string last_host(std::string wildcard, std::string netw_adr)
 		}
 		else
 			l_host[i] = (wildc_int[i] | netw_int[i]) - 1;
-		sprintf_s(l_host_double_arr[i], 4, "%d", l_host[i]);
+		sprintf_s(l_host_double_arr[i], 5, "%d", l_host[i]);
 	}
 
 	int row = 0, col = 0;
@@ -241,8 +242,4 @@ std::string quan_aviable(std::string quan)
 	sprintf_s(quan_use_str, 11, "%lld", quan_use_int);
 	(std::string)quan_use_str;
 	return quan_use_str;
-}
-
-int main() {
-	return 0;
 }
