@@ -100,8 +100,7 @@
       <EntryPointSymbol>main</EntryPointSymbol>
       <AdditionalDependencies>
       </AdditionalDependencies>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
+      <EntryPointSymbol>main</EntryPointSymbol>
       <SubSystem>NotSet</SubSystem>
     </Link>
   </ItemDefinitionGroup>
