@@ -7,4 +7,4 @@ before_build:
 build:
   verbosity: minimal
 test_script:
-  - '%APPVEYOR_BUILD_FOLDERS%\%CONFIGURATION%\Test.exe'
+  - C:\projects\ip-calculator\Debug\Test.exe
