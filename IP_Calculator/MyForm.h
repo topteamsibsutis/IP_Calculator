@@ -84,6 +84,7 @@ namespace IPCalculator {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->ip_input = (gcnew System::Windows::Forms::TextBox());
@@ -109,26 +110,34 @@ namespace IPCalculator {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(39, 9);
+			this->label1->BackColor = System::Drawing::Color::Transparent;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Arial", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label1->ForeColor = System::Drawing::Color::Aquamarine;
+			this->label1->Location = System::Drawing::Point(118, 7);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(68, 17);
+			this->label1->Size = System::Drawing::Size(75, 18);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"IP-adress";
 			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(199, 9);
+			this->label2->BackColor = System::Drawing::Color::Transparent;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Arial", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label2->ForeColor = System::Drawing::Color::Aquamarine;
+			this->label2->Location = System::Drawing::Point(287, 7);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(63, 17);
+			this->label2->Size = System::Drawing::Size(69, 18);
 			this->label2->TabIndex = 1;
 			this->label2->Text = L"Netmask";
 			// 
 			// ip_input
 			// 
-			this->ip_input->Location = System::Drawing::Point(12, 27);
+			this->ip_input->Location = System::Drawing::Point(80, 29);
 			this->ip_input->Name = L"ip_input";
-			this->ip_input->Size = System::Drawing::Size(118, 22);
+			this->ip_input->Size = System::Drawing::Size(150, 22);
 			this->ip_input->TabIndex = 2;
 			// 
 			// netmask_input
@@ -144,16 +153,17 @@ namespace IPCalculator {
 					L"255.252.0.0", L"255.248.0.0", L"255.240.0.0", L"255.224.0.0", L"255.192.0.0", L"255.128.0.0", L"255.0.0.0", L"254.0.0.0", L"252.0.0.0",
 					L"248.0.0.0", L"240.0.0.0", L"224.0.0.0", L"192.0.0.0", L"128.0.0.0", L"0.0.0.0"
 			});
-			this->netmask_input->Location = System::Drawing::Point(158, 27);
+			this->netmask_input->Location = System::Drawing::Point(246, 29);
 			this->netmask_input->Name = L"netmask_input";
-			this->netmask_input->Size = System::Drawing::Size(144, 24);
+			this->netmask_input->Size = System::Drawing::Size(150, 24);
 			this->netmask_input->TabIndex = 3;
 			// 
 			// calculation_button
 			// 
-			this->calculation_button->Location = System::Drawing::Point(12, 71);
+			this->calculation_button->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->calculation_button->Location = System::Drawing::Point(411, 29);
 			this->calculation_button->Name = L"calculation_button";
-			this->calculation_button->Size = System::Drawing::Size(290, 28);
+			this->calculation_button->Size = System::Drawing::Size(174, 24);
 			this->calculation_button->TabIndex = 4;
 			this->calculation_button->Text = L"Calculate network data";
 			this->calculation_button->UseVisualStyleBackColor = true;
@@ -161,123 +171,168 @@ namespace IPCalculator {
 			// 
 			// wildcard_output
 			// 
-			this->wildcard_output->Location = System::Drawing::Point(12, 185);
+			this->wildcard_output->Cursor = System::Windows::Forms::Cursors::Default;
+			this->wildcard_output->Location = System::Drawing::Point(246, 90);
 			this->wildcard_output->Name = L"wildcard_output";
+			this->wildcard_output->ReadOnly = true;
 			this->wildcard_output->Size = System::Drawing::Size(290, 22);
 			this->wildcard_output->TabIndex = 5;
 			// 
 			// network_adress_output
 			// 
-			this->network_adress_output->Location = System::Drawing::Point(12, 248);
+			this->network_adress_output->Cursor = System::Windows::Forms::Cursors::Default;
+			this->network_adress_output->Location = System::Drawing::Point(246, 188);
 			this->network_adress_output->Name = L"network_adress_output";
+			this->network_adress_output->ReadOnly = true;
 			this->network_adress_output->Size = System::Drawing::Size(290, 22);
 			this->network_adress_output->TabIndex = 6;
 			// 
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(126, 165);
+			this->label3->BackColor = System::Drawing::Color::Transparent;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Arial", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label3->ForeColor = System::Drawing::Color::Aquamarine;
+			this->label3->Location = System::Drawing::Point(161, 92);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(63, 17);
+			this->label3->Size = System::Drawing::Size(69, 18);
 			this->label3->TabIndex = 7;
 			this->label3->Text = L"Wildcard";
 			// 
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(104, 228);
+			this->label4->BackColor = System::Drawing::Color::Transparent;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Arial", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label4->ForeColor = System::Drawing::Color::Aquamarine;
+			this->label4->Location = System::Drawing::Point(111, 192);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(106, 17);
+			this->label4->Size = System::Drawing::Size(119, 18);
 			this->label4->TabIndex = 8;
 			this->label4->Text = L"Network adress";
 			// 
 			// clear_all
 			// 
-			this->clear_all->Location = System::Drawing::Point(12, 118);
+			this->clear_all->BackColor = System::Drawing::SystemColors::Control;
+			this->clear_all->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->clear_all->ForeColor = System::Drawing::SystemColors::MenuText;
+			this->clear_all->Location = System::Drawing::Point(80, 442);
 			this->clear_all->Name = L"clear_all";
-			this->clear_all->Size = System::Drawing::Size(290, 28);
+			this->clear_all->Size = System::Drawing::Size(505, 28);
 			this->clear_all->TabIndex = 9;
 			this->clear_all->Text = L"Clear all text fields";
-			this->clear_all->UseVisualStyleBackColor = true;
+			this->clear_all->UseVisualStyleBackColor = false;
 			this->clear_all->Click += gcnew System::EventHandler(this, &MyForm::clear_all_Click);
 			// 
 			// label5
 			// 
 			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(120, 293);
+			this->label5->BackColor = System::Drawing::Color::Transparent;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Arial", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label5->ForeColor = System::Drawing::Color::Aquamarine;
+			this->label5->Location = System::Drawing::Point(150, 143);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(72, 17);
+			this->label5->Size = System::Drawing::Size(80, 18);
 			this->label5->TabIndex = 10;
 			this->label5->Text = L"Broadcast";
 			// 
 			// label6
 			// 
 			this->label6->AutoSize = true;
-			this->label6->Location = System::Drawing::Point(100, 356);
+			this->label6->BackColor = System::Drawing::Color::Transparent;
+			this->label6->Font = (gcnew System::Drawing::Font(L"Arial", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label6->ForeColor = System::Drawing::Color::Aquamarine;
+			this->label6->Location = System::Drawing::Point(104, 241);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(113, 17);
+			this->label6->Size = System::Drawing::Size(127, 18);
 			this->label6->TabIndex = 11;
 			this->label6->Text = L"First host adress";
 			// 
 			// label7
 			// 
 			this->label7->AutoSize = true;
-			this->label7->Location = System::Drawing::Point(100, 418);
+			this->label7->BackColor = System::Drawing::Color::Transparent;
+			this->label7->Font = (gcnew System::Drawing::Font(L"Arial", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label7->ForeColor = System::Drawing::Color::Aquamarine;
+			this->label7->Location = System::Drawing::Point(106, 290);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(113, 17);
+			this->label7->Size = System::Drawing::Size(125, 18);
 			this->label7->TabIndex = 12;
 			this->label7->Text = L"Last host adress";
 			// 
 			// broadcast_output
 			// 
-			this->broadcast_output->Location = System::Drawing::Point(12, 313);
+			this->broadcast_output->Cursor = System::Windows::Forms::Cursors::Default;
+			this->broadcast_output->Location = System::Drawing::Point(246, 139);
 			this->broadcast_output->Name = L"broadcast_output";
-			this->broadcast_output->Size = System::Drawing::Size(289, 22);
+			this->broadcast_output->ReadOnly = true;
+			this->broadcast_output->Size = System::Drawing::Size(290, 22);
 			this->broadcast_output->TabIndex = 13;
 			// 
 			// last_host_output
 			// 
-			this->last_host_output->Location = System::Drawing::Point(12, 438);
+			this->last_host_output->Cursor = System::Windows::Forms::Cursors::Default;
+			this->last_host_output->Location = System::Drawing::Point(246, 286);
 			this->last_host_output->Name = L"last_host_output";
+			this->last_host_output->ReadOnly = true;
 			this->last_host_output->Size = System::Drawing::Size(289, 22);
 			this->last_host_output->TabIndex = 14;
 			// 
 			// first_host_output
 			// 
-			this->first_host_output->Location = System::Drawing::Point(12, 376);
+			this->first_host_output->Cursor = System::Windows::Forms::Cursors::Default;
+			this->first_host_output->Location = System::Drawing::Point(246, 237);
 			this->first_host_output->Name = L"first_host_output";
+			this->first_host_output->ReadOnly = true;
 			this->first_host_output->Size = System::Drawing::Size(289, 22);
 			this->first_host_output->TabIndex = 15;
 			// 
 			// quan_ip_all_output
 			// 
-			this->quan_ip_all_output->Location = System::Drawing::Point(12, 501);
+			this->quan_ip_all_output->Cursor = System::Windows::Forms::Cursors::Default;
+			this->quan_ip_all_output->Location = System::Drawing::Point(246, 335);
 			this->quan_ip_all_output->Name = L"quan_ip_all_output";
+			this->quan_ip_all_output->ReadOnly = true;
 			this->quan_ip_all_output->Size = System::Drawing::Size(289, 22);
 			this->quan_ip_all_output->TabIndex = 16;
 			// 
 			// quan_ip_aviable_output
 			// 
-			this->quan_ip_aviable_output->Location = System::Drawing::Point(12, 568);
+			this->quan_ip_aviable_output->Cursor = System::Windows::Forms::Cursors::Default;
+			this->quan_ip_aviable_output->Location = System::Drawing::Point(246, 384);
 			this->quan_ip_aviable_output->Name = L"quan_ip_aviable_output";
+			this->quan_ip_aviable_output->ReadOnly = true;
 			this->quan_ip_aviable_output->Size = System::Drawing::Size(289, 22);
 			this->quan_ip_aviable_output->TabIndex = 17;
 			// 
 			// label8
 			// 
 			this->label8->AutoSize = true;
-			this->label8->Location = System::Drawing::Point(80, 481);
+			this->label8->BackColor = System::Drawing::Color::Transparent;
+			this->label8->Font = (gcnew System::Drawing::Font(L"Arial", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label8->ForeColor = System::Drawing::Color::Aquamarine;
+			this->label8->Location = System::Drawing::Point(63, 339);
 			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(152, 17);
+			this->label8->Size = System::Drawing::Size(168, 18);
 			this->label8->TabIndex = 18;
 			this->label8->Text = L"Quanity of IP-adresses";
 			// 
 			// label9
 			// 
 			this->label9->AutoSize = true;
-			this->label9->Location = System::Drawing::Point(56, 548);
+			this->label9->BackColor = System::Drawing::Color::Transparent;
+			this->label9->Font = (gcnew System::Drawing::Font(L"Arial", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label9->ForeColor = System::Drawing::Color::Aquamarine;
+			this->label9->Location = System::Drawing::Point(8, 388);
 			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(201, 17);
+			this->label9->Size = System::Drawing::Size(223, 18);
 			this->label9->TabIndex = 19;
 			this->label9->Text = L"Quanity of aviable IP-adresses";
 			// 
@@ -285,7 +340,9 @@ namespace IPCalculator {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(314, 610);
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
+			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->ClientSize = System::Drawing::Size(659, 495);
 			this->Controls->Add(this->label9);
 			this->Controls->Add(this->label8);
 			this->Controls->Add(this->quan_ip_aviable_output);
@@ -306,16 +363,19 @@ namespace IPCalculator {
 			this->Controls->Add(this->ip_input);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedDialog;
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
 			this->Name = L"MyForm";
-			this->Text = L"MyForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
+			this->Text = L"IP-Calculator";
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
 	private: System::Void calculation_button_Click(System::Object^  sender, System::EventArgs^  e) {
-		msclr::interop::marshal_context context;
+		/*msclr::interop::marshal_context context;
 		string ip_input_string = context.marshal_as<string>(ip_input->Text);
 		string netmask_input_string = context.marshal_as<string>(netmask_input->Text);
 
@@ -341,7 +401,7 @@ namespace IPCalculator {
 		first_host_output->Text = first_host_String;
 		last_host_output->Text = last_host_String;
 		quan_ip_all_output->Text = quan_ip_all_String;
-		quan_ip_aviable_output->Text = quan_ip_aviable_String;
+		quan_ip_aviable_output->Text = quan_ip_aviable_String;*/
 	}
 private: System::Void clear_all_Click(System::Object^  sender, System::EventArgs^  e) {
 	ip_input->Clear();
