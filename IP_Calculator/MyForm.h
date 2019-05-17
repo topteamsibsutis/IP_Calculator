@@ -157,6 +157,7 @@ namespace IPCalculator {
 			this->netmask_input->Name = L"netmask_input";
 			this->netmask_input->Size = System::Drawing::Size(150, 24);
 			this->netmask_input->TabIndex = 3;
+			this->netmask_input->Text = "255.255.255.255";
 			// 
 			// calculation_button
 			// 
