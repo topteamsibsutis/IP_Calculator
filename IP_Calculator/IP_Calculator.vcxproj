@@ -148,6 +148,7 @@
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">
@@ -157,6 +158,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="calculations.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="background.jpg" />
+    <Image Include="znak.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
