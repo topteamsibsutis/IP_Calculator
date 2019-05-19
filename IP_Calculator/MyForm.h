@@ -376,11 +376,21 @@ namespace IPCalculator {
 		}
 #pragma endregion
 	private: System::Void calculation_button_Click(System::Object^  sender, System::EventArgs^  e) {
-		/*msclr::interop::marshal_context context;
+		msclr::interop::marshal_context context;
 		string ip_input_string = context.marshal_as<string>(ip_input->Text);
 		string netmask_input_string = context.marshal_as<string>(netmask_input->Text);
 
-		String^ network_adress_String = gcnew System::String(network_adress(ip_input_string, netmask_input_string).c_str());
+		int k = 0;
+		while (ip_input_string[k] != '\0')
+		{
+			k++;
+		}
+		if (ip_input_string[k - 1] == '.')
+		{
+			System::Windows::Forms::MessageBox::Show("Invalid record format!\nPlease enter the IP-address again.", "Invalid format", System::Windows::Forms::MessageBoxButtons::OK, System::Windows::Forms::MessageBoxIcon::Error);
+			System::Windows::Forms::Application::Restart();
+		}
+		/*String^ network_adress_String = gcnew System::String(network_adress(ip_input_string, netmask_input_string).c_str());
 		String^ wildcard_String = gcnew System::String(wildcard(netmask_input_string).c_str());
 
 		string network_adress_string = context.marshal_as<string>(network_adress_String);
