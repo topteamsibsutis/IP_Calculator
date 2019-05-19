@@ -1,8 +1,0 @@
-IP-address: 192.168.0.1
-Net mask: 255.255.255.0
-Wildcard: 0.0.0.255
-Broadcast: 192.168.0.255
-Network address: 192.168.0.0
-Firs host: 192.168.0.1
-Last host: 192.168.0.254
-Quanity of IP-addresses: 256Quanity of aviable IP-addresses: 254
