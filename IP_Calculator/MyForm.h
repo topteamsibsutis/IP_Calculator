@@ -381,15 +381,30 @@ namespace IPCalculator {
 		string netmask_input_string = context.marshal_as<string>(netmask_input->Text);
 
 		int k = 0;
+		int error = 0;
+
 		while (ip_input_string[k] != '\0')
 		{
 			k++;
 		}
+
 		if (ip_input_string[k - 1] == '.')
+		{
+			error = 1;
+		}
+
+		/*if (check(ip_input_string) != 0)
+			if (error == 1)
+			{
+				System::Windows::Forms::MessageBox::Show("Invalid record format!\nPlease enter the IP-address again.", "Invalid format", System::Windows::Forms::MessageBoxButtons::OK, System::Windows::Forms::MessageBoxIcon::Error);
+				System::Windows::Forms::Application::Restart();
+			}
+		else if (error == 1)
 		{
 			System::Windows::Forms::MessageBox::Show("Invalid record format!\nPlease enter the IP-address again.", "Invalid format", System::Windows::Forms::MessageBoxButtons::OK, System::Windows::Forms::MessageBoxIcon::Error);
 			System::Windows::Forms::Application::Restart();
-		}
+		}*/
+
 		/*String^ network_adress_String = gcnew System::String(network_adress(ip_input_string, netmask_input_string).c_str());
 		String^ wildcard_String = gcnew System::String(wildcard(netmask_input_string).c_str());
 
