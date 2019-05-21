@@ -24,6 +24,9 @@ void check_ip_input(std::string ip_input_string)
 		System::Windows::Forms::MessageBox::Show("Invalid record format!\nPlease enter the IP-address again.", "Invalid format", System::Windows::Forms::MessageBoxButtons::OK, System::Windows::Forms::MessageBoxIcon::Error);
 		System::Windows::Forms::Application::Restart();
 	}
+
+	/*if (check(ip_input_string) != 0) {
+	System::Windows::Forms::MessageBox::Show("Invalid record format!\nPlease enter the IP-address again.","Invalid format", System::Windows::Forms::MessageBoxButtons::OK,System::Windows::Forms::MessageBoxIcon::Error);System::Windows::Forms::Application::Restart();}*/
 }
 
 namespace IPCalculator {
