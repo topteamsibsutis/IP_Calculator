@@ -13,7 +13,7 @@ int check(std::string object)
 		if ((object[i] < 48 || object[i] > 57) && object[i] != '.')
 			return 1;
 
-		if (object[i] == '.' && (object[i + 1] == '.' || object[i + 1] == '0')) return 4;
+		if (object[i] == '.' && (object[i + 1] == '.' || (object[i + 1] == '0' && object[i + 2] != '.'))) return 4;
 
 		if (object[i] == '.') {
 			i++;
@@ -35,17 +35,7 @@ int check(std::string object)
 	}
 	return 0;
 }
-void transform(std::string object, int* object_int)
-{
-	int i = 0, j = 0, a = 0;
-	char part[4][4];
-	while (object[i] != '\0') {
-		
-		if (object[i] == '.') {
-			i++;
-			a = 0;
-			j++;
-		}
+
 
 void transform(std::string object, int* object_int)
 {

@@ -4,13 +4,43 @@
 #include <string>
 
 
-int transform(std::string object, int* object_int)
+int check(std::string object)
 {
-	int i = 0, j = 0, a = 0;
+	int object_int[4];
+	int i = 0, j = 0, a = 0, quan = 0;
 	char part[4][4];
 	while (object[i] != '\0') {
 		if ((object[i] < 48 || object[i] > 57) && object[i] != '.')
 			return 1;
+
+		if (object[i] == '.' && (object[i + 1] == '.' || (object[i + 1] == '0' && object[i + 2] != '.'))) return 4;
+
+		if (object[i] == '.') {
+			i++;
+			a = 0;
+			j++;
+			quan++;
+			if (quan > 3) return 3;
+		}
+
+		part[j][a] = object[i];
+		a++;
+		i++;
+	}
+	if (quan < 3) return 3;
+	for (i = 0; i < 4; i++) {
+		object_int[i] = atoi(part[i]);
+		if (object_int[i] < 0 || object_int[i] > 255)
+			return 2;
+	}
+	return 0;
+}
+
+void transform(std::string object, int* object_int)
+{
+	int i = 0, j = 0, a = 0;
+	char part[4][4];
+	while (object[i] != '\0') {
 
 		if (object[i] == '.') {
 			i++;
@@ -25,11 +55,9 @@ int transform(std::string object, int* object_int)
 
 	for (i = 0; i < 4; i++) {
 		object_int[i] = atoi(part[i]);
-		if (object_int[i] < 0 || object_int[i] > 255)
-			return 1;
 	}
-	return 0;
 }
+
 
 std::string network_adress(std::string ip, std::string mask)
 {
@@ -367,4 +395,39 @@ TEST(Quantity_used, Rand) {
 	std::string result = quan_aviable("8192");
 
 	EXPECT_EQ(expected, result);
+}
+
+TEST(Errors, Code_1) {
+	std::string object = "192.168,0.1";
+	int result = check(object);
+	int code = 1;
+	EXPECT_EQ(code, result);
+}
+
+TEST(Errors, Code_2) {
+	std::string object = "192.1680.0.1";
+	int result = check(object);
+	int code = 2;
+	EXPECT_EQ(code, result);
+}
+
+TEST(Errors, Code_3_low) {
+	std::string object = "192.168.1";
+	int result = check(object);
+	int code = 3;
+	EXPECT_EQ(code, result);
+}
+
+TEST(Errors, Code_3_over) {
+	std::string object = "192.168.0.1.1";
+	int result = check(object);
+	int code = 3;
+	EXPECT_EQ(code, result);
+}
+
+TEST(Errors, Code_4) {
+	std::string object = "192.168..0.1";
+	int result = check(object);
+	int code = 4;
+	EXPECT_EQ(code, result);
 }
