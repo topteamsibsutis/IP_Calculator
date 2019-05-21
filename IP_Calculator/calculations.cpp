@@ -13,6 +13,8 @@ int check(std::string object)
 		if ((object[i] < 48 || object[i] > 57) && object[i] != '.')
 			return 1;
 
+		if (object[i] == '.' && (object[i + 1] == '.' || object[i + 1] == '0')) return 4;
+
 		if (object[i] == '.') {
 			i++;
 			a = 0;
